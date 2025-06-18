@@ -1,0 +1,330 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+:root {
+  --cor-primaria: #fff;
+  --cor-secundaria: #f08cb0;
+  --cor-terciaria: #ffe6f0;
+  --cor-texto1: #333;
+  --cor-texto2: white;
+  --cor-hover: #e558a7;
+  --cor-shadow: rgba(0, 0, 0, 0.1);
+  --border-radius: 10px;
+  --padding-base: 1rem;
+  --font-size-base: 16px;
+}
+
+.navbar {
+  background-color: var(--cor-secundaria);
+}
+.navbar-custom {
+  background-color: var(--cor-secundaria);
+}
+.navbar-custom .nav-link {
+  color: var(--cor-texto2);
+
+  font-size: 20px;
+  padding: 5px 5px;
+}
+
+.navbar-custom .nav-link:hover {
+  color: var(--cor-secundaria);
+  padding: 5px 5px;
+}
+
+.nav-link {
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  padding: 5px 5px;
+  background-color: var(--cor-primaria);
+  border-radius: 10px;
+}
+
+/*Margem a direita do logo*/
+.navbar-brand {
+  margin-right: auto; /* Ajuste conforme o espaço desejado */
+}
+.navbar-nav .nav-item:last-child {
+  margin-right: 0;
+}
+
+.navbar-toggler {
+  border-color: white; /* borda branca */
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+main {
+  padding-top: 30px; /* ajuste conforme a altura da sua navbar */
+}
+
+/*Centralizacao do menu hamburguer no mobile*/
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .navbar-brand {
+    margin-right: 0; /*remoe margem no mobile*/
+  }
+
+  .navbar-nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .navbar-custom .nav-link:hover {
+    color: var(--cor-secundaria);
+    padding: 5px 60px;
+  }
+  .navbar-toggler {
+    margin-bottom: 15px;
+  }
+  main {
+    padding-top: 0;
+    margin-top: 0;
+  }
+}
+/*Melhoria Mobile*/
+@media (max-width: 768px) {
+  .prod-destaque {
+    margin-top: 2rem;
+  }
+  .carousel img {
+    height: 300px; /*Menor no mobile*/
+  }
+  .navbar-custom .nav-link {
+    font-size: 18px; /*Ligeiramente menor*/
+  }
+}
+
+.container {
+  /*Container responsivo*/
+  max-width: 1200px; /*limite mais padrao*/
+  margin: 0 auto;
+  /*max-height: 99%;  controla a altura se quiser limitar */
+  /* max-width: 99%; */
+}
+/* CAROUSEL - AJUSTE PARA MOSTRAR IMAGEM COMPLETA */
+.carousel {
+  background-color: #f8f9fa; /* Fundo neutro para preencher espaços vazios */
+}
+
+.carousel img {
+  max-height: 800px; /* controla a altura se quiser limitar */
+  width: 100%;
+  height: 600px; /* Altura fixa para manter consistência */
+  object-fit: contain; /* Mudança principal: mostra a imagem completa */
+  object-position: center; /* Centraliza a imagem */
+}
+
+/* Alternativa: Se preferir altura automática baseada na imagem */
+.carousel img.auto-height {
+  max-height: 800px;
+  width: 100%;
+  height: auto; /* Altura automática */
+  object-fit: contain;
+  object-position: center;
+}
+
+.prevb,
+.nextb {
+  color: var(--cor-texto1);
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 10px; /* largura fixa */
+  aspect-ratio: 1 / 1; /* torna quadrado */
+  /*padding: 10px; /* espaço interno */
+  top: 50%;
+  transform: translateY(-50%);
+  height: auto; /* controlado pelo aspect-ratio */
+}
+
+/*Estados de foco*/
+.nav-link:focus,
+.carousel-control-prev:focus,
+.carousel-control-next:focus {
+  outline: 2px solid var(--cor-secundaria);
+  outline-offset: 2px;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(240, 140, 176, 0.8);
+  transition: background-color 0.3s ease; /*transicao suave*/
+
+  border-radius: 6px;
+  padding: 20px 20px;
+  background-size: 100% 100%;
+}
+
+body {
+  background-color: var(--cor-primaria);
+  color: var(--cor-texto1);
+}
+
+h2 {
+  color: var(--cor-secundaria);
+}
+.prod-destaque {
+  margin-top: 60px;
+}
+
+footer {
+  color: var(--cor-texto2);
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+}
+footer.bg-light {
+  background-color: var(--cor-secundaria) !important;
+}
+
+/*ESTILOS PARA CARDS DE PRODUTOS*/
+.product-card {
+  background: var(--cor-primaria);
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 6px var(--cor-shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+/*PRODUTOS DETALHE*/
+.estrelas {
+  color: gold;
+  font-size: 1.2rem;
+}
+
+.produto-detalhe {
+  max-width: 800px;
+  margin: 2rem auto;
+  background-color: var(--cor-primaria);
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.produto-detalhe img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+.produto-detalhe h2 {
+  margin-top: 0;
+  color: #222;
+}
+
+strong {
+  color: #444;
+}
+
+.comentarios {
+  margin-top: 3rem;
+}
+.comentarios h2 {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+#comentario-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+#comentario-form textarea,
+#comentario-form select {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  resize: vertical;
+}
+#comentario-form button {
+  align-self: flex-start;
+  padding: 0.6rem 1.2rem;
+  background: var(--cor-secundaria);
+  color: var(--cor-texto2);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+#comentario-form button:hover {
+  background: #e558a7;
+}
+
+.comentario {
+  background: #f4f4f4;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  border-left: 4px solid var(--cor-secundaria);
+}
+.comentario textarea {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+}
+.comentario button {
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  background: #444;
+  color: var(--cor-primaria);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.comentario button:hover {
+  background: #222;
+}
+
+.estrelas {
+  font-size: 1.2rem;
+  color: gold;
+}
+
+.sessao-cont {
+  margin-top: 50px;
+}
+.border-rosa {
+  border: 2px solid var(--cor-secundaria) !important;
+}
+
+/*FORMULARIO CONTACTOS*/
+/* Adicionar ao style.css */
+.card:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+}
+
+.border-rosa {
+  border: 3px solid var(--cor-secundaria) !important;
+}
+
+#contactForm .form-control:focus,
+#contactForm .form-select:focus {
+  border-color: var(--cor-secundaria);
+  box-shadow: 0 0 0 0.2rem rgba(240, 140, 176, 0.25);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--cor-secundaria);
+  border-color: var(--cor-secundaria);
+}
+/*FIM do formulario de contactos*/

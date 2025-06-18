@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard | LisBeauty Admin</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/admin.css" />
+  </head>
+  <body class="bg-light">
+    <!-- Navbar Superior -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
+      <div class="container-fluid">
+        <button class="btn btn-outline-light" id="sidebarToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+
+        <a class="navbar-brand ms-3" href="#">
+          <img
+            src="../img/uploads/LisBeauty.png"
+            alt="LisBeauty"
+            style="height: 40px"
+          />
+          <span class="ms-2">Admin</span>
+        </a>
+
+        <div class="navbar-nav ms-auto">
+          <!-- Notificações -->
+          <div class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="notificationsDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+            >
+              <i class="fas fa-bell"></i>
+              <span class="badge bg-danger" id="notification-count">3</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" id="notifications-list">
+              <li><h6 class="dropdown-header">Notificações</h6></li>
+              <li>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-shopping-cart text-primary"></i>
+                  Nova encomenda recebida
+                  <small class="text-muted d-block">Há 5 min</small>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-star text-warning"></i>
+                  Nova avaliação de produto
+                  <small class="text-muted d-block">Há 1 hora</small>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-user text-success"></i>
+                  Novo cliente registrado
+                  <small class="text-muted d-block">Há 2 horas</small>
+                </a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item text-center" href="#">Ver todas</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Perfil do Admin -->
+          <div class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle d-flex align-items-center"
+              href="#"
+              id="userDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+            >
+              <img
+                src="../img/admin-avatar.jpg"
+                class="rounded-circle me-2"
+                width="32"
+                height="32"
+                alt="Admin"
+              />
+              <span id="admin-name">Admin</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#profileModal"
+                >
+                  <i class="fas fa-user"></i> Perfil
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item"
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target="#settingsModal"
+                >
+                  <i class="fas fa-cog"></i> Configurações
+                </a>
+              </li>
+              <li><hr class="dropdown-divider" /></li>
+              <li>
+                <a class="dropdown-item" href="#" onclick="logout()">
+                  <i class="fas fa-sign-out-alt"></i> Sair
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <nav class="col-lg-2 d-lg-block sidebar collapse" id="sidebar">
+          <div class="position-sticky pt-3">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  href="#dashboard"
+                  data-section="dashboard"
+                >
+                  <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#produtos" data-section="produtos">
+                  <i class="fas fa-box"></i> Produtos
+                  <span class="badge bg-primary ms-2" id="produtos-count"
+                    >0</span
+                  >
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="#encomendas"
+                  data-section="encomendas"
+                >
+                  <i class="fas fa-shopping-cart"></i> Encomendas
+                  <span class="badge bg-warning ms-2" id="encomendas-count"
+                    >0</span
+                  >
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#clientes" data-section="clientes">
+                  <i class="fas fa-users"></i> Clientes
+                  <span class="badge bg-info ms-2" id="clientes-count">0</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="#avaliacoes"
+                  data-section="avaliacoes"
+                >
+                  <i class="fas fa-star"></i> Avaliações
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="#relatorios"
+                  data-section="relatorios"
+                >
+                  <i class="fas fa-chart-bar"></i> Relatórios
+                </a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link"
+                  href="#configuracoes"
+                  data-section="configuracoes"
+                >
+                  <i class="fas fa-cog"></i> Configurações
+                </a>
+              </li>
+            </ul>
+
+            <hr />
+
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link" href="../index.html" target="_blank">
+                  <i class="fas fa-external-link-alt"></i> Ver Site
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="logout()">
+                  <i class="fas fa-sign-out-alt"></i> Sair
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <main class="col-lg-10 ms-sm-auto px-md-4">
+          <!-- Dashboard Section -->
+          <div id="dashboard-section" class="content-section">
+            <div
+              class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom"
+            >
+              <h1 class="h2">Dashboard</h1>
+              <div class="btn-toolbar">
+                <button
+                  class="btn btn-sm btn-outline-secondary"
+                  onclick="refreshDashboard()"
+                >
+                  <i class="fas fa-sync-alt"></i> Atualizar
+                </button>
+              </div>
+            </div>
+
+            <!-- Cards de Estatísticas -->
+            <div class="row mb-4">
+              <div class="col-xl-3 col-md-6">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col me-2">
+                        <div
+                          class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                        >
+                          Total de Produtos
+                        </div>
+                        <div
+                          class="h5 mb-0 font-weight-bold text-gray-800"
+                          id="total-produtos"
+                        >
+                          0
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-box fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-md-6">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col me-2">
+                        <div
+                          class="text-xs font-weight-bold text-success text-uppercase mb-1"
+                        >
+                          Encomendas (Mês)
+                        </div>
+                        <div
+                          class="h5 mb-0 font-weight-bold text-gray-800"
+                          id="encomendas-mes"
+                        >
+                          0
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-shopping-cart fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-md-6">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col me-2">
+                        <div
+                          class="text-xs font-weight-bold text-info text-uppercase mb-1"
+                        >
+                          Clientes Ativos
+                        </div>
+                        <div
+                          class="h5 mb-0 font-weight-bold text-gray-800"
+                          id="clientes-ativos"
+                        >
+                          0
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-md-6">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col me-2">
+                        <div
+                          class="text-xs font-weight-bold text-warning text-uppercase mb-1"
+                        >
+                          Receita (Mês)
+                        </div>
+                        <div
+                          class="h5 mb-0 font-weight-bold text-gray-800"
+                          id="receita-mes"
+                        >
+                          Kz 0
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Gráficos e Tabelas -->
+            <div class="row">
+              <!-- Gráfico de Vendas -->
+              <div class="col-xl-8 col-lg-7">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                      Vendas dos Últimos 7 Dias
+                    </h6>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-area">
+                      <canvas id="salesChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Produtos Mais Vendidos -->
+              <div class="col-xl-4 col-lg-5">
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">
+                      Produtos Populares
+                    </h6>
+                  </div>
+                  <div class="card-body">
+                    <div id="produtos-populares-list">
+                      <!-- Lista será preenchida dinamicamente -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Encomendas Recentes -->
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">
+                  Encomendas Recentes
+                </h6>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table
+                    class="table table-bordered"
+                    id="encomendas-recentes-table"
+                  >
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Produto</th>
+                        <th>Valor</th>
+                        <th>Status</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Dados serão preenchidos dinamicamente -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Produtos Section -->
+          <div
+            id="produtos-section"
+            class="content-section"
+            style="display: none"
+          >
+            <div
+              class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom"
+            >
+              <h1 class="h2">Gestão de Produtos</h1>
+              <div class="btn-toolbar">
+                <button
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#produtoModal"
+                >
+                  <i class="fas fa-plus"></i> Novo Produto
+                </button>
+              </div>
+            </div>
+
+            <!-- Filtros -->
+            <div class="row mb-3">
+              <div class="col-md-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="buscar-produto"
+                  placeholder="Buscar produto..."
+                />
+              </div>
+              <div class="col-md-3">
+                <select class="form-select" id="filtro-categoria">
+                  <option value="">Todas as categorias</option>
+                  <option value="Perucas">Perucas</option>
+                  <option value="MakeUp">MakeUp</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <select class="form-select" id="filtro-status">
+                  <option value="">Todos os status</option>
+                  <option value="ativo">Ativo</option>
+                  <option value="inativo">Inativo</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <button
+                  class="btn btn-outline-secondary"
+                  onclick="exportarProdutos()"
+                >
+                  <i class="fas fa-download"></i> Exportar
+                </button>
+              </div>
+            </div>
+
+            <!-- Tabela de Produtos -->
+            <div class="card shadow">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover" id="produtos-table">
+                    <thead>
+                      <tr>
+                        <th>Imagem</th>
+                        <th>Nome</th>
+                        <th>Categoria</th>
+                        <th>Preço</th>
+                        <th>Visualizações</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody id="produtos-tbody">
+                      <!-- Dados preenchidos dinamicamente -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Encomendas Section -->
+          <div
+            id="encomendas-section"
+            class="content-section"
+            style="display: none"
+          >
+            <div
+              class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom"
+            >
+              <h1 class="h2">Gestão de Encomendas</h1>
+              <div class="btn-toolbar">
+                <button
+                  class="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#encomendaModal"
+                >
+                  <i class="fas fa-plus"></i> Nova Encomenda
+                </button>
+              </div>
+            </div>
+
+            <!-- Status Cards -->
+            <div class="row mb-4">
+              <div class="col-md-3">
+                <div class="card bg-warning text-white">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h4 id="pendentes-count">0</h4>
+                        <p>Pendentes</p>
+                      </div>
+                      <i class="fas fa-clock fa-2x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card bg-info text-white">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h4 id="processando-count">0</h4>
+                        <p>Processando</p>
+                      </div>
+                      <i class="fas fa-cog fa-2x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card bg-primary text-white">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h4 id="enviadas-count">0</h4>
+                        <p>Enviadas</p>
+                      </div>
+                      <i class="fas fa-shipping-fast fa-2x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="card bg-success text-white">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h4 id="entregues-count">0</h4>
+                        <p>Entregues</p>
+                      </div>
+                      <i class="fas fa-check fa-2x"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Filtros de Encomendas -->
+            <div class="row mb-3">
+              <div class="col-md-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="buscar-encomenda"
+                  placeholder="Buscar encomenda..."
+                />
+              </div>
+              <div class="col-md-3">
+                <select class="form-select" id="filtro-status-encomenda">
+                  <option value="">Todos os status</option>
+                  <option value="pendente">Pendente</option>
+                  <option value="processando">Processando</option>
+                  <option value="enviada">Enviada</option>
+                  <option value="entregue">Entregue</option>
+                  <option value="cancelada">Cancelada</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <input type="date" class="form-control" id="filtro-data" />
+              </div>
+              <div class="col-md-3">
+                <button
+                  class="btn btn-outline-secondary"
+                  onclick="exportarEncomendas()"
+                >
+                  <i class="fas fa-download"></i> Exportar
+                </button>
+              </div>
+            </div>
+
+            <!-- Tabela de Encomendas -->
+            <div class="card shadow">
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-hover" id="encomendas-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Produtos</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Data</th>
+                        <th>Ações</th>
+                      </tr>
+                    </thead>
+                    <tbody id="encomendas-tbody">
+                      <!-- Dados preenchidos dinamicamente -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Outras seções serão adicionadas aqui -->
+        </main>
+      </div>
+    </div>
+
+    <!-- Modais -->
+    <!-- Modal Produto -->
+    <div class="modal fade" id="produtoModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Novo Produto</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="produtoForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="produto-nome" class="form-label"
+                      >Nome do Produto</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="produto-nome"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="produto-categoria" class="form-label"
+                      >Categoria</label
+                    >
+                    <select class="form-select" id="produto-categoria" required>
+                      <option value="">Selecione</option>
+                      <option value="Perucas">Perucas</option>
+                      <option value="MakeUp">MakeUp</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="produto-subcategoria" class="form-label"
+                      >Subcategoria</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="produto-subcategoria"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="produto-preco" class="form-label"
+                      >Preço (Kz)</label
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="produto-preco"
+                      step="0.01"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="produto-descricao" class="form-label"
+                  >Descrição</label
+                >
+                <textarea
+                  class="form-control"
+                  id="produto-descricao"
+                  rows="3"
+                ></textarea>
+              </div>
+              <div class="mb-3">
+                <label for="produto-imagem" class="form-label">Imagem</label>
+                <input
+                  type="file"
+                  class="form-control"
+                  id="produto-imagem"
+                  accept="image/*"
+                />
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="submit" form="produtoForm" class="btn btn-primary">
+              Salvar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/auth-guard.js"></script>
+    <script src="../js/admin-dashboard.js"></script>
+  </body>
+</html>
