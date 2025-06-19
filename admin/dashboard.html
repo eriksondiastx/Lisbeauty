@@ -116,7 +116,7 @@
               </li>
               <li><hr class="dropdown-divider" /></li>
               <li>
-                <a class="dropdown-item" href="#" onclick="logout()">
+                <a class="dropdown-item" href="/login.html" onclick="logout()">
                   <i class="fas fa-sign-out-alt"></i> Sair
                 </a>
               </li>
@@ -623,106 +623,239 @@
     </div>
 
     <!-- Modais -->
-    <!-- Modal Produto -->
-    <div class="modal fade" id="produtoModal" tabindex="-1">
-      <div class="modal-dialog modal-lg">
+    <!-- Modal Produto Melhorado -->
+    <div
+      class="modal fade"
+      id="produtoModal"
+      tabindex="-1"
+      aria-labelledby="produtoModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-xl">
         <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Novo Produto</h5>
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="produtoModalLabel">
+              <i class="fas fa-box"></i> Novo Produto
+            </h5>
             <button
               type="button"
-              class="btn-close"
+              class="btn-close btn-close-white"
               data-bs-dismiss="modal"
+              aria-label="Close"
             ></button>
           </div>
           <div class="modal-body">
+            <!-- Alert Container -->
+            <div id="modal-alert-container"></div>
+
             <form id="produtoForm">
               <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="produto-nome" class="form-label"
-                      >Nome do Produto</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="produto-nome"
-                      required
-                    />
+                <!-- Coluna Esquerda - Dados Principais -->
+                <div class="col-lg-8">
+                  <div class="card">
+                    <div class="card-header">
+                      <h6 class="mb-0">
+                        <i class="fas fa-info-circle"></i> Informações Básicas
+                      </h6>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-8 mb-3">
+                          <label for="produto-nome" class="form-label">
+                            Nome do Produto <span class="text-danger">*</span>
+                          </label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="produto-nome"
+                            required
+                            maxlength="100"
+                            placeholder="Ex: Peruca Lace Front Castanha"
+                          />
+                          <div class="form-text">
+                            Mínimo 3 caracteres, máximo 100
+                          </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                          <label class="form-label">Status</label>
+                          <div class="form-check form-switch">
+                            <input
+                              class="form-check-input"
+                              type="checkbox"
+                              id="produto-ativo"
+                              checked
+                            />
+                            <label class="form-check-label" for="produto-ativo">
+                              <span class="badge bg-success" id="status-badge"
+                                >Ativo</span
+                              >
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <label for="produto-categoria" class="form-label">
+                            Categoria <span class="text-danger">*</span>
+                          </label>
+                          <select
+                            class="form-select"
+                            id="produto-categoria"
+                            required
+                          >
+                            <option value="">Selecione uma categoria</option>
+                            <option value="Perucas">👑 Perucas</option>
+                            <option value="MakeUp">💄 MakeUp</option>
+                            <option value="Acessórios">✨ Acessórios</option>
+                            <option value="Cuidados">🧴 Cuidados</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="produto-subcategoria" class="form-label"
+                            >Subcategoria</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="produto-subcategoria"
+                            maxlength="50"
+                            placeholder="Ex: Lace Front, Full Lace"
+                          />
+                          <div class="form-text">
+                            Especifique o tipo do produto
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <label for="produto-preco" class="form-label">
+                            Preço <span class="text-danger">*</span>
+                          </label>
+                          <div class="input-group">
+                            <span class="input-group-text">Kz</span>
+                            <input
+                              type="number"
+                              class="form-control"
+                              id="produto-preco"
+                              step="0.01"
+                              min="0"
+                              required
+                              placeholder="0.00"
+                            />
+                          </div>
+                          <div class="form-text">
+                            Preço em Kwanzas angolanos
+                          </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                          <label for="produto-tags" class="form-label"
+                            >Tags</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="produto-tags"
+                            placeholder="loira, lisa, natural"
+                          />
+                          <div class="form-text">
+                            Separar por vírgula para melhor busca
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="produto-descricao" class="form-label"
+                          >Descrição</label
+                        >
+                        <textarea
+                          class="form-control"
+                          id="produto-descricao"
+                          rows="4"
+                          maxlength="500"
+                          placeholder="Descreva as características do produto..."
+                        ></textarea>
+                        <div class="form-text">
+                          <span id="char-count">0</span>/500 caracteres
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="produto-categoria" class="form-label"
-                      >Categoria</label
-                    >
-                    <select class="form-select" id="produto-categoria" required>
-                      <option value="">Selecione</option>
-                      <option value="Perucas">Perucas</option>
-                      <option value="MakeUp">MakeUp</option>
-                    </select>
+
+                <!-- Coluna Direita - Imagem e Extras -->
+                <div class="col-lg-4">
+                  <div class="card">
+                    <div class="card-header">
+                      <h6 class="mb-0">
+                        <i class="fas fa-camera"></i> Imagem do Produto
+                      </h6>
+                    </div>
+                    <div class="card-body">
+                      <div class="mb-3">
+                        <input
+                          type="file"
+                          class="form-control"
+                          id="produto-imagem"
+                          accept="image/*"
+                        />
+                        <div class="form-text">JPG, PNG ou WEBP (máx. 5MB)</div>
+                      </div>
+
+                      <!-- Preview da imagem aparecerá aqui -->
+                      <div id="image-preview-container" class="text-center">
+                        <div
+                          class="image-placeholder p-4 border border-dashed rounded"
+                        >
+                          <i class="fas fa-image fa-3x text-muted mb-2"></i>
+                          <p class="text-muted">
+                            Clique acima para selecionar uma imagem
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card mt-3">
+                    <div class="card-header">
+                      <h6 class="mb-0">
+                        <i class="fas fa-lightbulb"></i> Dicas para Fotos
+                      </h6>
+                    </div>
+                    <div class="card-body">
+                      <ul class="small text-muted mb-0">
+                        <li>✨ Use boa iluminação natural</li>
+                        <li>📏 Fundo neutro (branco/cinza)</li>
+                        <li>📱 Resolução mínima: 800x600px</li>
+                        <li>📐 Formato quadrado funciona melhor</li>
+                        <li>🎯 Produto deve ocupar 70% da foto</li>
+                      </ul>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="produto-subcategoria" class="form-label"
-                      >Subcategoria</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="produto-subcategoria"
-                    />
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="mb-3">
-                    <label for="produto-preco" class="form-label"
-                      >Preço (Kz)</label
-                    >
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="produto-preco"
-                      step="0.01"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="produto-descricao" class="form-label"
-                  >Descrição</label
-                >
-                <textarea
-                  class="form-control"
-                  id="produto-descricao"
-                  rows="3"
-                ></textarea>
-              </div>
-              <div class="mb-3">
-                <label for="produto-imagem" class="form-label">Imagem</label>
-                <input
-                  type="file"
-                  class="form-control"
-                  id="produto-imagem"
-                  accept="image/*"
-                />
               </div>
             </form>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer bg-light">
             <button
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
             >
-              Cancelar
+              <i class="fas fa-times"></i> Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              id="preview-btn"
+              style="display: none"
+            >
+              <i class="fas fa-eye"></i> Visualizar
             </button>
             <button type="submit" form="produtoForm" class="btn btn-primary">
-              Salvar
+              <i class="fas fa-save"></i>
+              <span id="submit-text">Salvar Produto</span>
             </button>
           </div>
         </div>
@@ -735,5 +868,6 @@
     <script src="../js/auth.js"></script>
     <script src="../js/auth-guard.js"></script>
     <script src="../js/admin-dashboard.js"></script>
+    <script src="../js/admin-products.js"></script>
   </body>
 </html>

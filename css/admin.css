@@ -231,6 +231,136 @@ main {
   margin-bottom: 1.5rem;
 }
 
+/* Melhorias visuais para o dashboard */
+
+/* Avatar circular para clientes */
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    var(--cor-secundaria),
+    var(--cor-terciaria)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+/* Hover effect para tabelas */
+.table-hover-highlight {
+  background-color: rgba(240, 140, 176, 0.05) !important;
+  transform: scale(1.01);
+  transition: all 0.2s ease;
+}
+
+/* Status badges personalizados */
+.status-pendente {
+  background-color: #f6c23e !important;
+  color: #1a1a1a !important;
+}
+
+.status-processando {
+  background-color: #36b9cc !important;
+}
+
+.status-enviada {
+  background-color: #5a5c69 !important;
+}
+
+.status-entregue {
+  background-color: #1cc88a !important;
+}
+
+.status-cancelada {
+  background-color: #e74a3b !important;
+}
+
+/* Botões de ação menores */
+.btn-action {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  margin: 0.1rem;
+  border-radius: 0.25rem;
+}
+
+/* Cards de estatísticas */
+.card.bg-warning,
+.card.bg-info,
+.card.bg-primary,
+.card.bg-success {
+  transition: transform 0.2s ease;
+}
+
+.card.bg-warning:hover,
+.card.bg-info:hover,
+.card.bg-primary:hover,
+.card.bg-success:hover {
+  transform: translateY(-2px);
+}
+
+/* Preview de imagem */
+.img-preview {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 0.375rem;
+  border: 2px solid #e9ecef;
+  position: relative;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 0.375rem;
+}
+
+.produto-row:hover .image-overlay {
+  opacity: 1;
+}
+
+/* Tags de produtos */
+.product-tags .badge {
+  font-size: 0.65rem;
+  margin-right: 0.25rem;
+}
+
+/* Toast customizado */
+.toast-container .toast {
+  min-width: 300px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .btn-group-vertical .btn {
+    margin-bottom: 0.25rem;
+  }
+
+  .avatar-circle {
+    width: 35px;
+    height: 35px;
+    font-size: 0.8rem;
+  }
+
+  .img-preview {
+    width: 50px;
+    height: 50px;
+  }
+}
+
 /* Modal customizations */
 .modal-header {
   background-color: var(--cor-secundaria);
@@ -239,4 +369,69 @@ main {
 
 .modal-header button {
   filter: brightness(0) invert(1);
+}
+
+/* Modal de Produto */
+#produtoModal .modal-xl {
+  max-width: 1200px;
+}
+
+.image-placeholder {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+}
+
+#image-preview-container img {
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 0.375rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.image-preview-overlay {
+  position: relative;
+  display: inline-block;
+}
+
+.image-preview-overlay .btn-remove {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+/* Status Switch */
+#produto-ativo:checked + label #status-badge {
+  background-color: #198754 !important;
+}
+
+#produto-ativo:not(:checked) + label #status-badge {
+  background-color: #6c757d !important;
+}
+
+#produto-ativo:not(:checked) + label #status-badge::after {
+  content: "Inativo";
+}
+
+/* Contador de caracteres */
+#char-count {
+  font-weight: bold;
+  color: #6c757d;
+}
+
+/* Validação visual */
+.form-control.is-invalid {
+  border-color: #dc3545;
+}
+
+.form-control.is-valid {
+  border-color: #198754;
 }
